@@ -23,7 +23,7 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull:false,
         references:{
-          model:'customernames',
+          model:'customers',
           key:'id',
           as:'customerId'
         }

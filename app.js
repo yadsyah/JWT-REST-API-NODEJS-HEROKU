@@ -3,8 +3,10 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const users = require('./server/routes/user')
 const movies = require('./server/routes/movies')
+const customer = require('./server/routes/customer')
+const alamat = require('./server/routes/alamat')
+
 var jwt = require('jsonwebtoken')
-const User = require('./server/db/models').User
 
 const app = express()
 app.set('secretKey', 'nodeRestApi')
@@ -24,11 +26,11 @@ app.get('/', (req, res) => {
 
 
 //public route
-app.use('/users', users)
+app.use('/api/users', users)
 //private route
-app.use('/movies', validateUser, movies)
-
-
+app.use('/api/movies', validateUser, movies)
+app.use('/api/customer', customer)
+app.use('/api/alamat', alamat)
 function validateUser(req, res, next) {
     jwt.verify(req.headers['x-access-token'],
         req.app.get('secretKey'), (err, decoded) => {

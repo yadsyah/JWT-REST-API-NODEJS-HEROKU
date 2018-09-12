@@ -2,7 +2,6 @@ const User = require('../../db/models').User
 const bCrypt = require('bcrypt-nodejs')
 const jwt = require('jsonwebtoken')
 const SeedRandom = require('seedrandom')
-const Op = require('sequelize').Op
 
 module.exports = {
     create(req, res) {
@@ -12,13 +11,11 @@ module.exports = {
 
         }
 
-        var password = req.body.password
         payload = {
             name: req.body.name,
             email: req.body.email,
             kode_karyawan: generateKodeKaryawan(req.body.name)
         }
-
 
         console.log(payload)
         let generateCrypt = (password) => {
