@@ -21,22 +21,16 @@ module.exports = {
                 }
             })
     },
-    getAll(req, res, next) {
+    getAll(req, res) {
         Movie
             .findAll()
-            .then(err, result => {
-                if (err) {
-                    next(err)
-                } else {
-                    res.json({
-                        status: "success",
-                        message: "List Movie Found!!!",
-                        data: {
-                            movies: result
-                        }
-                    })
-                }
-            })
+            .then((result) => {
+                return res.status(200).send({
+                    code:"00",
+                    error:false,
+                    data: result
+                })
+            }).catch((error) => res.status(400).send(error))
     },
     create(req, res, err) {
         return User
@@ -90,15 +84,4 @@ module.exports = {
             })
 
     },
-    getAllVersiDian(req, res) {
-        Movie
-            .findAll()
-            .then((result) => {
-                return res.status(200).send({
-                    code:"00",
-                    error:false,
-                    data: result
-                })
-            }).catch((error) => res.status(400).send(error))
-    }
 }

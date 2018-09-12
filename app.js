@@ -31,13 +31,14 @@ app.use('/api/users', users)
 app.use('/api/movies', validateUser, movies)
 app.use('/api/customer', customer)
 app.use('/api/alamat', alamat)
+
 function validateUser(req, res, next) {
     jwt.verify(req.headers['x-access-token'],
         req.app.get('secretKey'), (err, decoded) => {
             if (err) {
                 res.json({
-                    code:99,
-                    error:true,
+                    code: 99,
+                    error: true,
                     message: err.message,
                 })
             } else {
