@@ -6,13 +6,11 @@ module.exports = {
 
         return Customer
             .findOne({
-                where:{
+                where: {
                     id: req.params.customerId
                 }
-            }
-            )
+            })
             .then((result) => {
-                console.log('alamatID RESULT'+result.alamatId)
                 if (result.alamatId) {
                     Alamat
                         .update({
@@ -42,7 +40,6 @@ module.exports = {
                             negara: req.body.negara
                         })
                         .then((alamatCreate) => {
-                            console.log('alamatId ' + alamatCreate.id)
                             Customer
                                 .update({
                                     alamatId: alamatCreate.id
@@ -62,23 +59,23 @@ module.exports = {
                 }
             }).catch((error) => res.status(400).send(error))
     },
-    getAll(req,res){
+    getAll(req, res) {
 
         return Alamat
-                .findAll()
-                .then((result)=>{
-                    if(result){
-                        return res.status(200).send({
-                            code:"00",
-                            error:false,
-                            data:result
-                        })
-                    }
-                    return res.status(400).send({
-                        code:91,
-                        error:true,
-                        message:'Data Not Found'
+            .findAll()
+            .then((result) => {
+                if (result) {
+                    return res.status(200).send({
+                        code: "00",
+                        error: false,
+                        data: result
                     })
-                }).catch((error)=>res.status(400).send(error))
+                }
+                return res.status(400).send({
+                    code: 91,
+                    error: true,
+                    message: 'Data Not Found'
+                })
+            }).catch((error) => res.status(400).send(error))
     }
 }

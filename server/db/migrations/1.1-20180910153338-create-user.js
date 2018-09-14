@@ -28,6 +28,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      isAdmin: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       }
     });
   },

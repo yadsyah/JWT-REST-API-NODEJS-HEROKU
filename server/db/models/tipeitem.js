@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     TipeItem.belongsTo(models.item_product, {
       foreignKey: 'id',
       targetKey: 'tipe_item',
-      as: 'tipeItems'
+      as: 'tipeItem'
     })
   };
   return TipeItem;

@@ -4,19 +4,20 @@ module.exports = (sequelize, DataTypes) => {
     namaproduct: DataTypes.STRING,
     tipe_item: DataTypes.INTEGER,
     harga: DataTypes.DOUBLE,
-    stock: DataTypes.INTEGER
+    stock: DataTypes.INTEGER,
+    createdBy: DataTypes.STRING
   }, {});
   item_product.associate = function(models) {
   //   // associations can be defined here
-  //   item_product.belongsTo(models.ListOrder, {
-  //     foreignKey: 'id',
-  //     targetKey: 'itemId',
-  //     as: 'itemsProduct'
-  //   })
     item_product.belongsTo(models.TipeItem,{
       foreignKey: 'tipe_item',
       targetKey: 'id',
-      as: 'tipeItem'
+      as: 'tipeItems'
+    })
+    item_product.hasMany(models.ListOrder,{
+      foreignKey: 'id',
+      targetKey:'itemId',
+      as:'listOrders'
     })
   };
   return item_product;

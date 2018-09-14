@@ -51,6 +51,14 @@ module.exports = {
           key:'id',
           as:'status_order'
         }
+      },
+      createdBy: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      totalHarga:{
+        allowNull: false,
+        type: Sequelize.DOUBLE
       }
     });
   },

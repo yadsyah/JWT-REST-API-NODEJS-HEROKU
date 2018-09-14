@@ -23,7 +23,7 @@ module.exports = {
           as:'alamatId'
         }
       },
-      email: {
+    email: {
         type: Sequelize.STRING
       },
       tanggal_lahir: {
@@ -39,6 +39,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      createdBy: {
+        type: Sequelize.STRING
       }
     });
   },
