@@ -6,6 +6,7 @@ const StatusOrder = require('./statusorder')
 const TipeItem = require('./tipeitem');
 const ProductItem = require('./itemproduct')
 const ListOrder = require('./OrderList')
+const CurrentUser = require('./CurrentUser')
 module.exports = {
     User,
     Movie,
@@ -14,5 +15,6 @@ module.exports = {
     StatusOrder,
     TipeItem,
     ProductItem,
-    ListOrder
+    ListOrder,
+    CurrentUser
 }

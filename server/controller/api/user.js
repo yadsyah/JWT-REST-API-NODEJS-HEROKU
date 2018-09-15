@@ -25,7 +25,7 @@ module.exports = {
         return User
             .findOne({
                 where: {
-                    name: req.body.name,
+                    username: req.body.username,
                     email: req.body.email
                 }
             })
@@ -34,7 +34,7 @@ module.exports = {
                     return res.status(400).send({
                         code: 90,
                         error: true,
-                        message: 'Nama sudah ada!'
+                        message: 'Username sudah ada!'
                     })
                 }
                 User
@@ -43,6 +43,7 @@ module.exports = {
                         email: req.body.email,
                         kode_karyawan: generateKodeKaryawan(req.body.name, req.body.email).substring(0, 5),
                         password: userPassword,
+                        username: req.body.username,
                         isAdmin: req.body.isAdmin ? 1 : 0
                     })
                     .then((result, err) => {
@@ -69,7 +70,6 @@ module.exports = {
                     next(err)
                 } else {
                     if (userInfo) {
-                        console.log(userInfo.isAdmin)
                         if (bCrypt.compareSync(req.body.password, userInfo.password)) {
                             if (userInfo.isAdmin) {
                                 const token = jwt.sign({
@@ -84,9 +84,6 @@ module.exports = {
                                     status: 'success',
                                     message: 'User Found!',
                                     isSuperUser: userInfo.isAdmin,
-                                    data: {
-                                        user:userInfo
-                                    },
                                     token: token
                                 })
                             } else {
@@ -102,46 +99,90 @@ module.exports = {
                                     status: 'success',
                                     message: 'User Found!',
                                     isSuperUser: userInfo.isAdmin,
-                                    data: {
-                                        user:userInfo
-                                    },
                                     token: token
                                 })
                             }
                         } else {
-                            res.json({
-                                status: "error",
-                                message: "Invalid email/password",
-                                data: null
+                            res.status(400).send({
+                                code: 90,
+                                error: true,
+                                message: 'Invalid Password/Email'
                             })
                         }
                     } else {
                         res.status(400).send({
                             code: 90,
                             error: true,
-                            message: 'Data Not Found!'
+                            message: 'Email is Never Register!'
                         })
                     }
                 }
             })
     },
-    getAllUser(req,res){
-        console.log(req.body.isSuperUser)
-        console.log(req.body.kodeKaryawan)
-            return User.
-                    findAll()
-                    .then((users)=>{
-                        res.status(200).send({
+    getUserByUsername(req,res){
+
+        return User
+                .findOne({
+                    where:{
+                        username: req.params.username
+                    }
+                })
+                .then((result)=>{
+                    if(result){
+                       return res.status(200).send({
                             code:'00',
                             error:false,
-                            message:'success',
-                            data:users
+                            data:result
                         })
+                    }
+                    return res.status(400).send({
+                        code:99,
+                        error:true,
+                        message:'Data Not Found!'
                     })
-        // return res.status(400).send({
-        //     code:02,
-        //     error:true,
-        //     message:'User Not Authorization/Previledge For This Request!'
-        // })
+                }).catch((error)=>res.status(400).send(error))
+    },
+    checkUsernameAvailability(req,res){
+
+        return User
+                .findOne({
+                    where:{
+                        username: req.params.username
+                    }
+                })
+                .then((result)=>{
+                    console.log(result)
+                    if(!result){
+                        return res.status(200).send({
+                            available: true,
+                        })
+                    } else {
+                        return res.status(200).send({
+                            available : false,
+                        })
+                    }
+                })
+    },
+    checkEmailAvailability(req,res){
+
+        return User
+                .findOne({
+                    where:{
+                        email: req.params.email
+                    }
+                })
+                .then((result)=>{
+                    console.log(result)
+                    if(!result){
+                        return res.status(200).send({
+                            available: true,
+                        })
+                    } else {
+                        return res.status(200).send({
+                            available : false,
+                        })
+                    }
+                })
     }
+  
 }

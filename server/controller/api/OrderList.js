@@ -5,11 +5,8 @@ const Customer = require('../../db/models').Customer
 const Alamat = require('../../db/models').Alamat
 const TipeItem = require('../../db/models').TipeItem
 module.exports = {
-    
+
     postOrder(req, res) {
-        console.log(req.body.userId)
-        console.log(req.body.kodeKaryawan)
-        console.log(req.body.isSuperUser)
         payload = {
             itemId: req.body.itemId,
             customerId: req.body.customerId,
@@ -17,7 +14,7 @@ module.exports = {
             tanggal_order: new Date(),
             createdBy: req.body.kodeKaryawan,
             status_order: 1,
-            
+
         }
 
         if (!payload.quantity || payload.quantity == 0) {
@@ -53,17 +50,15 @@ module.exports = {
                             .then((customer) => {
                                 if (customer) {
                                     ListOrder
-                                        .create(
-                                            {
-                                                itemId: req.body.itemId,
-                                                customerId: req.body.customerId,
-                                                quantity: req.body.quantity,
-                                                tanggal_order: new Date(),
-                                                createdBy: req.body.kodeKaryawan,
-                                                status_order: 1,
-                                                totalHarga: tempHarga * req.body.quantity
-                                            }
-                                        )
+                                        .create({
+                                            itemId: req.body.itemId,
+                                            customerId: req.body.customerId,
+                                            quantity: req.body.quantity,
+                                            tanggal_order: new Date(),
+                                            createdBy: req.body.kodeKaryawan,
+                                            status_order: 1,
+                                            totalHarga: tempHarga * req.body.quantity
+                                        })
                                         .then((listorder) => {
                                             ItemProduct
                                                 .update({
@@ -107,7 +102,7 @@ module.exports = {
 
     },
     getAllRetrive(req, res) {
-      
+
         return ListOrder
             .findAll({
                 include: [{

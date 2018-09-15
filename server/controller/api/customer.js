@@ -1,9 +1,9 @@
 const Customer = require('../../db/models').Customer
 const Alamat = require('../../db/models').Alamat
+const User = require('../../db/models').User
 module.exports = {
 
     getAll(req, res) {
-
         return Customer
             .findAll()
             .then((result) => {
@@ -77,5 +77,46 @@ module.exports = {
                     message: 'Data Not Found!'
                 })
             }).catch((error) => res.status(400).send(error))
+    },
+    getAllUser(req, res) {
+        if (req.body.isSuperUser) {
+
+            return User.
+            findAll()
+                .then((users) => {
+                    res.status(200).send({
+                        code: '00',
+                        error: false,
+                        message: 'success',
+                        data: users
+                    })
+                })
+        }
+        return res.status(400).send({
+            code: 02,
+            error: true,
+            message: 'User Not Authorization/Previledge For This Request!'
+        })
+    },
+    checkUsernameAvailability(req,res){
+
+        return User
+                .findOne({
+                    where:{
+                        username: req.params.username
+                    }
+                })
+                .then((result)=>{
+                    console.log(result)
+                    if(!result){
+                        return res.status(200).send({
+                            available: true,
+                        })
+                    } else {
+                        return res.status(200).send({
+                            available : false,
+                        })
+                    }
+                })
     }
 }

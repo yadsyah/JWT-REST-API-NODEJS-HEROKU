@@ -80,39 +80,38 @@ module.exports = {
             }).catch((error) => res.status(400).send(error))
     },
     getAllRetrive(req, res) {
-        console.log(req.body.isSuperUser)
-        if(req.body.isSuperUser){
+        if (req.body.isSuperUser) {
 
             return ItemProduct
-            .findAll({
-                include: {
-                    model: TipeItem,
-                    as: 'tipeItems'
-                }
-            })
-            .then((result) => {
-                if (result.length > 0) {
-                    return res.status(200).send({
-                        code: '00',
-                        error: false,
-                        data: result
-                    })
-                }
-                return res.status(400).send({
-                    code: 90,
-                    error: true,
-                    message: 'Data Not Found!'
+                .findAll({
+                    include: {
+                        model: TipeItem,
+                        as: 'tipeItems'
+                    }
                 })
-            }).catch((error) => res.status(400).send(error))
+                .then((result) => {
+                    if (result.length > 0) {
+                        return res.status(200).send({
+                            code: '00',
+                            error: false,
+                            data: result
+                        })
+                    }
+                    return res.status(400).send({
+                        code: 90,
+                        error: true,
+                        message: 'Data Not Found!'
+                    })
+                }).catch((error) => res.status(400).send(error))
         }
         return res.status(401).send({
-            code:02,
-            error:true,
-            message:'You Cant Access This Request Need Previledge More Than ur level!'
+            code: 02,
+            error: true,
+            message: 'You Cant Access This Request Need Previledge More Than ur level!'
         })
-        },
-        getAll(req, res) {
-            return ItemProduct
+    },
+    getAll(req, res) {
+        return ItemProduct
             .findAll()
             .then((result) => {
                 if (result.length > 0) {
