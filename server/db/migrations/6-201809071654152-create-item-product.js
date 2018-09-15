@@ -16,7 +16,7 @@ module.exports = {
         allowNull:false,
         onDelete: 'CASCADE',
         references: {
-          model: 'tipeitems',
+          model: 'TipeItems',
           key: 'id',
           as: 'tipe_item'
         }
