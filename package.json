@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "npm":"6.4.0",
-    "node":"9.5.0"
+    "npm": "6.4.0",
+    "node": "9.5.0"
   },
   "scripts": {
     "start:dev": "nodemon ./bin/www",
@@ -21,7 +21,8 @@
     "jsonwebtoken": "^8.3.0",
     "math-random": "^1.0.1",
     "morgan": "^1.9.1",
-    "mysql2": "^1.6.1",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "seedrandom": "^2.4.4",
     "sequelize": "^4.38.0",
     "uuid": "^3.3.2"
