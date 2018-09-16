@@ -127,5 +127,42 @@ module.exports = {
                     message: 'Data Not Found!'
                 })
             }).catch((error) => res.status(400).send(error))
+    },
+
+    updateById(req, res) {
+
+        payload = {
+            namaproduct: req.body.namaproduct,
+            tipe_item: req.body.tipeitem,
+            harga: req.body.harga,
+            stock: req.body.stock,
+        }
+        ItemProduct
+            .findById(req.body.itemId)
+            .then((result) => {
+                if (result) {
+                    ItemProduct
+                        .update({
+                            payload
+                        }, {
+                            where: {
+                                id: result.id
+                            }
+                        })
+                        .then((finalItem) => {
+                            return res.status(202).send({
+                                code: '00',
+                                error: false,
+                                message: 'Update Successfully!'
+                            })
+                        }).catch((error) => res.status(400).send(error))
+                } else {
+                    return res.status(400).send({
+                        code: 90,
+                        error: true,
+                        message: 'Item Id ' + req.body.itemId + ' Tidak Ditemukan!'
+                    })
+                }
+            }).catch((error) => res.status(400).send(error))
     }
 }

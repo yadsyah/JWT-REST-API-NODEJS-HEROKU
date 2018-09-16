@@ -41,7 +41,7 @@ app.use('/api/orders', PublicListOrder)
 //private route
 app.use('/api/customer', validateUser, customer)
 app.use('/api/alamat', validateUser, alamat)
-app.use('/api/itemproduct', validateUser, ItemProduct)
+app.use('/api/itemproduct', ItemProduct)
 app.use('/api/orders', validateUser, PrivateListOrder)
 app.use('/api/account', validateUser, PrivateCurrentUser)
 
