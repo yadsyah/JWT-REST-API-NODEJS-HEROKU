@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       nohp: {
-        type: Sequelize.BIGINT
+        type: Sequelize.STRING
       },
       alamatId: {
         type: Sequelize.INTEGER,
