@@ -39,6 +39,14 @@ module.exports = {
             }).catch((error) => res.status(400).send(error))
     },
     create(req, res, err) {
+
+        if(!req.body.isSuperUser){
+            return res.status(401).send({
+                code:02,
+                error:true,
+                message:'User Not Authorization/Previledge For This Request!'
+            })
+        }
         return Movie
             .findOne({
                 where: {
