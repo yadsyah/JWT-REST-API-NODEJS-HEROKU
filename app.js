@@ -101,7 +101,8 @@ app.use((err, req, res, next) => {
         })
     } else {
         res.status(500).json({
-            message: 'Something looks Wrong:(!!!)'
+            message: 'Something looks Wrong:(!!!)',
+            error:err
         })
     }
 })
