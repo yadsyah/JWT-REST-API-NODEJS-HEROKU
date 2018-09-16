@@ -52,7 +52,7 @@ module.exports = {
                             error: false,
                             message: 'Data Successfully create'
                         })
-                    }).catch((error) => res.status(400))
+                    }).catch((error) => res.status(400).send(error))
             })
     },
     getAllRetrive(req, res) {
