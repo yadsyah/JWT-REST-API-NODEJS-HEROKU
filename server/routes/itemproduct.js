@@ -5,7 +5,7 @@ const itemProductController = require('../controller/api').ProductItem
 
 // private ROUTER
 router.post('/create', validateUser, itemProductController.createProduct)
-router.get('/update', validateUser, itemProductController.updateById)
+router.post('/update', validateUser, itemProductController.updateById)
 // public ROUTER
 router.get('/all', itemProductController.getAll)
 router.get('/allRetrive', itemProductController.getAllRetrive)
