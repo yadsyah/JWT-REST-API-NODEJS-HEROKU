@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     nohp: DataTypes.STRING,
     email: DataTypes.STRING,
     tanggal_lahir: DataTypes.DATE,
-    noktp: DataTypes.INTEGER,
+    noktp: DataTypes.STRING,
     createdBy: DataTypes.STRING
   }, {});
-  Customer.associate = function(models) {
+  Customer.associate = function (models) {
     // associations can be defined here
     Customer.belongsTo(models.Alamat, {
       foreignKey: 'alamatId',
