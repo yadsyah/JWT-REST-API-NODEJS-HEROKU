@@ -1,16 +1,4 @@
-const express = require('express')
-const router = express.Router()
 const jwt = require('jsonwebtoken')
-const userController = require('../controller/api/user');
-const UtilAuth = require('../constant/UtilAuth')
-
-router.post('/register',userController.create)
-router.post('/authenticate',userController.authenticate)
-router.get('/:username',userController.getUserByUsername)
-router.get('/checkUsernameAvailability/:username', userController.checkUsernameAvailability)
-router.get('/checkEmailAvailability/:email', userController.checkEmailAvailability)
-
-//Validate JWT USER
 function validateUser(req, res, next) {
     jwt.verify(req.headers['x-access-token'],
         req.app.get('secretKey'), (err, decoded) => {
@@ -49,4 +37,6 @@ function validateUser(req, res, next) {
         })
 }
 
-module.exports = router
+module.exports = {
+    validateUser:validateUser
+}

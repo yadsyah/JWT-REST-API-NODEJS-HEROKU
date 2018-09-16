@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 var jwt = require('jsonwebtoken')
 const itemProductController = require('../controller/api').ProductItem
+const UtilAuth = require('../constant/UtilAuth')
 
 // private ROUTER
-router.post('/create', validateUser, itemProductController.createProduct)
-router.post('/update', validateUser, itemProductController.updateById)
+router.post('/create', UtilAuth.validateUser, itemProductController.createProduct)
+router.post('/update', UtilAuth.validateUser, itemProductController.updateById)
 // public ROUTER
 router.get('/all', itemProductController.getAll)
 router.get('/allRetrive', itemProductController.getAllRetrive)
