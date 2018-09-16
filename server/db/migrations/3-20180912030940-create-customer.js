@@ -12,18 +12,18 @@ module.exports = {
         type: Sequelize.STRING
       },
       nohp: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BIGINT
       },
       alamatId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
-        references:{
-          model:'Alamats',
-          key:'id',
-          as:'alamatId'
+        references: {
+          model: 'Alamats',
+          key: 'id',
+          as: 'alamatId'
         }
       },
-    email: {
+      email: {
         type: Sequelize.STRING
       },
       tanggal_lahir: {
