@@ -11,7 +11,7 @@ Run `git clone https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU.git` untuk d
 ## Database Setup
 
 lokasi config.json berada di `folderproject/server/db/config/config.json` dan di ganti enviromentnya untuk environment local 
-
+```json
 {
   "development": {
     "username": "root",
@@ -35,7 +35,7 @@ lokasi config.json berada di `folderproject/server/db/config/config.json` dan di
     "dialect": "mysql"
   }
 }
-
+```
 ## For The Next
 - Implement REDIS on the heroku
 - Implement Front-End
