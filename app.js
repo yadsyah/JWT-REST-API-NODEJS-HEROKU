@@ -17,8 +17,10 @@ app.use(morgan('combined'))
 
 
 app.get('/', (req, res) => {
-    res.json({
-        "Tutorial": "Rest API JWT"
+    res.status(200).send({
+        code:"00",
+        message:'Welcome to My REST SERVICES API',
+        author:'DIAN SETIYADI'
     })
 })
 //Routes Import
@@ -94,6 +96,7 @@ app.use((err, req, res, next) => {
     if (err.status === 404) {
         console.log('Path URL NOT FOUND!')
         res.status(404).json({
+            code:404,
             message: 'Path Not Found!'
         })
     } else {
