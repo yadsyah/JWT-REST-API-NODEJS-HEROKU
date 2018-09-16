@@ -80,8 +80,6 @@ module.exports = {
             }).catch((error) => res.status(400).send(error))
     },
     getAllRetrive(req, res) {
-        if (req.body.isSuperUser) {
-
             return ItemProduct
                 .findAll({
                     include: {
@@ -103,12 +101,6 @@ module.exports = {
                         message: 'Data Not Found!'
                     })
                 }).catch((error) => res.status(400).send(error))
-        }
-        return res.status(401).send({
-            code: 02,
-            error: true,
-            message: 'You Cant Access This Request Need Previledge More Than ur level!'
-        })
     },
     getAll(req, res) {
         return ItemProduct

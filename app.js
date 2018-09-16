@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 var jwt = require('jsonwebtoken')
+const UtilAuth = require('./server/constant/UtilAuth')
 
 const app = express()
 app.use(cors())
@@ -15,11 +16,11 @@ app.use(bodyParser.json())
 app.use(logger('dev'))
 app.use(morgan('combined'))
 
-
+//Index
 app.get('/', (req, res) => {
     res.status(200).send({
         code:"00",
-        message:'Welcome to My REST SERVICES API',
+        message:'Welcome to My REST API SERVICES',
         author:'DIAN SETIYADI'
     })
 })
@@ -39,50 +40,12 @@ app.use('/api/Util', Util)
 app.use('/api/movies', movies)
 app.use('/api/orders', PublicListOrder)
 //private route
-app.use('/api/customer', validateUser, customer)
-app.use('/api/alamat', validateUser, alamat)
+app.use('/api/customer', UtilAuth.validateUser, customer)
+app.use('/api/alamat', UtilAuth.validateUser, alamat)
 app.use('/api/itemproduct', ItemProduct)
-app.use('/api/orders', validateUser, PrivateListOrder)
-app.use('/api/account', validateUser, PrivateCurrentUser)
+app.use('/api/orders', UtilAuth.validateUser, PrivateListOrder)
+app.use('/api/account', UtilAuth.validateUser, PrivateCurrentUser)
 
-//Validate JWT USER
-function validateUser(req, res, next) {
-    jwt.verify(req.headers['x-access-token'],
-        req.app.get('secretKey'), (err, decoded) => {
-            if (err) {
-                if (err.message == 'jwt expired') {
-                    return res.status(401).send({
-                        code: 99,
-                        error: true,
-                        message: 'Token Expired!',
-                    })
-                } else if (err.message == 'jwt must be provided') {
-                    res.status(401).send({
-                        code: 99,
-                        error: true,
-                        message: 'You Need Authorization First!',
-                    })
-                } else if (err.message == 'jwt malformed') {
-                    res.status(401).send({
-                        code: 99,
-                        error: true,
-                        message: 'Token Format ERROR!'
-                    })
-                } else {
-                    res.json({
-                        code: 99,
-                        error: true,
-                        message: err.message,
-                    })
-                }
-            } else {
-                req.body.userId = decoded.id
-                req.body.kodeKaryawan = decoded.kodeKaryawan
-                req.body.isSuperUser = decoded.isSuperUser
-                next()
-            }
-        })
-}
 
 app.use((req, res, next) => {
     let err = new Error('Not Found')

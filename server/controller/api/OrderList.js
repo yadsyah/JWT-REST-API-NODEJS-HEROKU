@@ -14,7 +14,6 @@ module.exports = {
             tanggal_order: new Date(),
             createdBy: req.body.kodeKaryawan,
             status_order: 1,
-
         }
 
         if (!payload.quantity || payload.quantity == 0) {
@@ -156,6 +155,36 @@ module.exports = {
                     error: true,
                     message: 'Data Not Found'
                 })
+            }).catch((error) => res.status(400).send(error))
+    },
+    updateStatusOrder(req, res) {
+
+        return ListOrder
+            .findById(req.params.orderId)
+            .then((result) => {
+                if (result) {
+                    ListOrder
+                        .update({
+                            status_order: req.body.status_order
+                        }, {
+                            where: {
+                                id: result.id
+                            }
+                        })
+                        .then((orderFinal) => {
+                            return res.status(200).send({
+                                code: '00',
+                                error: false,
+                                message: 'Data Successfully Update Status Order!'
+                            })
+                        }).catch((error) => res.status(400).send(error))
+                } else {
+                    return res.status(400).send({
+                        code: 90,
+                        error: true,
+                        message: 'Data Order Not Found'
+                    })
+                }
             }).catch((error) => res.status(400).send(error))
     }
 }
