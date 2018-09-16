@@ -92,7 +92,7 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    // console.log(err.message)
+    console.log(err.message)
     if (err.status === 404) {
         console.log('Path URL NOT FOUND!')
         res.status(404).json({
