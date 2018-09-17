@@ -7,4 +7,5 @@ const UtilAuth = require('../constant/UtilAuth')
 router.post('/register', UtilAuth.validateUser, customerController.createCustomer)
 router.get('/all', UtilAuth.validateUser, customerController.getAll)
 router.get('/allRetrive', UtilAuth.validateUser, customerController.getAllRetrive)
+router.get('/allUser', customerController.getAllUser)
 module.exports = router

@@ -34,13 +34,14 @@ const ItemProduct = require('./server/routes/itemproduct')
 const PublicListOrder = require('./server/routes/publicListOrder')
 const PrivateListOrder = require('./server/routes/privateListOrder')
 const PrivateCurrentUser = require('./server/routes/PrivateCurrentUser')
+
 //public route
 app.use('/api/users', users)
 app.use('/api/Util', Util)
 app.use('/api/movies', movies)
 app.use('/api/orders', PublicListOrder)
 //private route
-app.use('/api/customer', UtilAuth.validateUser, customer)
+app.use('/api/customer', customer)
 app.use('/api/alamat', UtilAuth.validateUser, alamat)
 app.use('/api/itemproduct', ItemProduct)
 app.use('/api/orders', UtilAuth.validateUser, PrivateListOrder)

@@ -98,5 +98,15 @@ module.exports = {
                     })
                 }
             })
+    },
+    getAllUser(req, res) {
+        return User
+            .findAll()
+            .then(result => {
+                console.log('getAll')
+                res.status(200).send({
+                    data: result
+                })
+            }).catch((error) => res.status(400).send(error))
     }
 }
