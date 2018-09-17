@@ -211,7 +211,7 @@ module.exports = {
             message: 'User Not Authorization/Previledge For This Request!'
         })
     },
-    getAll(req, res) {
+    getAllUsers(req, res) {
         return User
             .findAll()
             .then(result => {
