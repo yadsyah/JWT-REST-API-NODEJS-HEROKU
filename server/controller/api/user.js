@@ -192,6 +192,7 @@ module.exports = {
             User.
             findAll()
                 .then((users) => {
+                    console.log(users)
                     if (users.length > 0) {
                          res.status(200).send({
                             code: '00',
@@ -206,7 +207,7 @@ module.exports = {
                             message: 'Data Not Found!'
                         })
                     }
-                }).catch((error) => console.log(error), res.status(400).send(error))
+                }).catch((error) => res.status(400).send(error))
         }
         return res.status(400).send({
             code: 02,

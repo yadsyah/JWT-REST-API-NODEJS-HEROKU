@@ -8,7 +8,7 @@ router.post('/authenticate', userController.authenticate)
 router.get('/:username', userController.getUserByUsername)
 router.get('/checkUsernameAvailability/:username', userController.checkUsernameAvailability)
 router.get('/checkEmailAvailability/:email', userController.checkEmailAvailability)
-router.get('/user/all', UtilAuth.validateUser, userController.getAllUser)
+router.get('/all', UtilAuth.validateUser, userController.getAllUser)
 
 
 module.exports = router
