@@ -182,13 +182,18 @@ module.exports = {
                 }
             })
     },
-    getAllUser(req, res) {
+    getAllUser(req, res, err) {
+        console.log(req.body.isSuperUser)
         if (req.body.isSuperUser) {
+
+            if (err) {
+                console.log(err)
+            }
             return User.
             findAll()
                 .then((users) => {
                     if (users.length > 0) {
-                        return res.status(200).send({
+                        res.status(200).send({
                             code: '00',
                             error: false,
                             message: 'success',
