@@ -183,25 +183,25 @@ module.exports = {
             })
     },
     getAllUser(req, res, err) {
-        console.log('IS ADMIN : '+req.body.isSuperUser)
+        console.log('IS ADMIN : ' + req.body.isSuperUser)
         if (req.body.isSuperUser) {
 
             if (err) {
                 console.log(err)
             }
-            User.
+            return User.
             findAll()
                 .then((result) => {
                     console.log(result)
                     if (result.length > 0) {
-                         res.status(200).send({
+                        res.status(200).send({
                             code: '00',
-                            error: false,   
+                            error: false,
                             message: 'success',
                             data: result
                         })
                     } else {
-                         res.status(400).send({
+                        res.status(400).send({
                             code: 90,
                             error: true,
                             message: 'Data Not Found!'
