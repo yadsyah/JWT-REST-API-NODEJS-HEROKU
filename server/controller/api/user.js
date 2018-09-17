@@ -189,7 +189,7 @@ module.exports = {
             if (err) {
                 console.log(err)
             }
-            return User.
+            User.
             findAll()
                 .then((users) => {
                     if (users.length > 0) {
