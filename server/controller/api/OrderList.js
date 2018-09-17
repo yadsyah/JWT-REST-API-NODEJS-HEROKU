@@ -38,6 +38,7 @@ module.exports = {
                 tempHarga = product.harga
                 console.log(product)
                 if (product != null) {
+                    console.log('MASUK PRODUCT')
                     if (tempStock == 0) {
                         return res.status(400).send({
                             code: 91,
