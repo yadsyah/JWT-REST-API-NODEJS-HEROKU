@@ -193,7 +193,7 @@ module.exports = {
             findAll()
                 .then((users) => {
                     if (users.length > 0) {
-                        res.status(200).send({
+                        return res.status(200).send({
                             code: '00',
                             error: false,
                             message: 'success',
