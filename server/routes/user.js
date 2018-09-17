@@ -3,12 +3,12 @@ const router = express.Router()
 const userController = require('../controller/api/user');
 const UtilAuth = require('../constant/UtilAuth')
 
-router.post('/register', userController.create)
-router.post('/authenticate', userController.authenticate)
-router.get('/:username', userController.getUserByUsername)
-router.get('/checkUsernameAvailability/:username', userController.checkUsernameAvailability)
-router.get('/checkEmailAvailability/:email', userController.checkEmailAvailability)
-router.get('/all', UtilAuth.validateUser, userController.getAllUser)
-router.get('/allAnother',userController.getAllUsers)
+router.post('/auth/register', userController.create)
+router.post('/auth/authenticate', userController.authenticate)
+router.get('/user/:username', userController.getUserByUsername)
+router.get('/user/checkUsernameAvailability/:username', userController.checkUsernameAvailability)
+router.get('/user/checkEmailAvailability/:email', userController.checkEmailAvailability)
+router.get('/users/all', UtilAuth.validateUser, userController.getAllUser)
+router.get('/users/allAnother',userController.getAllUsers)
 
 module.exports = router

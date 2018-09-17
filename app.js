@@ -36,7 +36,7 @@ const PrivateListOrder = require('./server/routes/privateListOrder')
 const PrivateCurrentUser = require('./server/routes/PrivateCurrentUser')
 
 //public route
-app.use('/api/users', users)
+app.use('/api', users)
 app.use('/api/Util', Util)
 app.use('/api/movies', movies)
 app.use('/api/orders', PublicListOrder)
