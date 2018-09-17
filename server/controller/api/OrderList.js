@@ -32,7 +32,11 @@ module.exports = {
         }
         tempStock = 0;
         ItemProduct
-            .findById(payload.itemId)
+            .findOne({
+                where:{
+                    id:payload.itemId
+                }
+            })
             .then((product) => {
                 tempStock = product.stock
                 tempHarga = product.harga
