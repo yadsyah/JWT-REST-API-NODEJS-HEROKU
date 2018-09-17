@@ -9,6 +9,5 @@ router.get('/user/:username', userController.getUserByUsername)
 router.get('/user/checkUsernameAvailability/:username', userController.checkUsernameAvailability)
 router.get('/user/checkEmailAvailability/:email', userController.checkEmailAvailability)
 router.get('/users/all', UtilAuth.validateUser, userController.getAllUser)
-router.get('/users/allAnother',userController.getAllUsers)
 
 module.exports = router

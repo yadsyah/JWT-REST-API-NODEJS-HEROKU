@@ -1,27 +1,29 @@
 const express = require('express')
-const logger = require('morgan')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
-var jwt = require('jsonwebtoken')
+const csrf = require('csrf')
+
 const UtilAuth = require('./server/constant/UtilAuth')
 
 const app = express()
 app.use(cors())
+app.use(csrf({
+    cookie: true
+}))
 app.set('secretKey', 'nodeRestApi')
 app.use(bodyParser.urlencoded({
     extended: false
 }))
 app.use(bodyParser.json())
-app.use(logger('dev'))
 app.use(morgan('combined'))
 
 //Index
 app.get('/', (req, res) => {
     res.status(200).send({
-        code:"00",
-        message:'Welcome to My REST API SERVICES',
-        author:'DIAN SETIYADI'
+        code: "00",
+        message: 'Welcome to My REST API SERVICES',
+        author: 'DIAN SETIYADI'
     })
 })
 //Routes Import
@@ -60,13 +62,13 @@ app.use((err, req, res, next) => {
     if (err.status === 404) {
         console.log('Path URL NOT FOUND!')
         res.status(404).json({
-            code:404,
+            code: 404,
             message: 'Path Not Found!'
         })
     } else {
         res.status(500).json({
             message: 'Something looks Wrong:(!!!)',
-            error:err
+            error: err
         })
     }
 })
