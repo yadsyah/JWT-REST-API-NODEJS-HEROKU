@@ -151,7 +151,6 @@ module.exports = {
                     }
                 })
                 .then((result)=>{
-                    console.log(result)
                     if(!result){
                         return res.status(200).send({
                             available: true,
@@ -172,7 +171,6 @@ module.exports = {
                     }
                 })
                 .then((result)=>{
-                    console.log(result)
                     if(!result){
                         return res.status(200).send({
                             available: true,

@@ -36,6 +36,7 @@ module.exports = {
             .then((product) => {
                 tempStock = product.stock
                 tempHarga = product.harga
+                console.log(product)
                 if (product) {
                     if (tempStock == 0) {
                         return res.status(400).send({

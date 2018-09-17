@@ -50,7 +50,7 @@ module.exports = {
                         return res.status(201).send({
                             code: "00",
                             error: false,
-                            message: 'Data Successfully create'
+                            message: 'Data Successfully create!'
                         })
                     }).catch((error) => res.status(400).send(error))
             })
