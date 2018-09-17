@@ -214,9 +214,8 @@ module.exports = {
     getAll(req,res){
         return User
                 .findAll()
-                .then((result)=>{
-                    res.status(400).send({
-                        code:'00',
+                .then(result=>{
+                    res.status(200).send({
                         data:result
                     })
                 }).catch((error)=>res.status(400).send(error))
