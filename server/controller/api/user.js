@@ -182,13 +182,9 @@ module.exports = {
                 }
             })
     },
-    getAllUser(req, res, err) {
+    getAllUser(req, res) {
         console.log('IS ADMIN : ' + req.body.isSuperUser)
         if (req.body.isSuperUser) {
-
-            if (err) {
-                console.log(err)
-            }
             return User.
             findAll()
                 .then((result) => {
@@ -215,5 +211,15 @@ module.exports = {
             message: 'User Not Authorization/Previledge For This Request!'
         })
     },
+    getAll(req,res){
+        return User
+                .findAll()
+                .then((result)=>{
+                    res.status(400).send({
+                        code:'00',
+                        data:result
+                    })
+                }).catch((error)=>res.status(400).send(error))
+    }
 
 }
