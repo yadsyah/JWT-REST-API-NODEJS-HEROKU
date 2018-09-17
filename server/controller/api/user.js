@@ -184,11 +184,11 @@ module.exports = {
     },
     getAllUser(req, res) {
         if (req.body.isSuperUser) {
-         User.
+            return User.
             findAll()
                 .then((users) => {
                     if (users.length > 0) {
-                       return res.status(200).send({
+                        return res.status(200).send({
                             code: '00',
                             error: false,
                             message: 'success',
@@ -201,7 +201,7 @@ module.exports = {
                             message: 'Data Not Found!'
                         })
                     }
-                }).catch((error) => res.status(400).send(error))
+                }).catch((error) => console.log(error), res.status(400).send(error))
         }
         return res.status(400).send({
             code: 02,
