@@ -193,14 +193,14 @@ module.exports = {
             findAll()
                 .then((users) => {
                     if (users.length > 0) {
-                        return res.status(200).send({
+                         res.status(200).send({
                             code: '00',
                             error: false,
                             message: 'success',
                             data: users
                         })
                     } else {
-                        return res.status(400).send({
+                         res.status(400).send({
                             code: 90,
                             error: true,
                             message: 'Data Not Found!'
