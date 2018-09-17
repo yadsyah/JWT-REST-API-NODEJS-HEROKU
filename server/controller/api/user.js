@@ -183,7 +183,7 @@ module.exports = {
             })
     },
     getAllUser(req, res, err) {
-        console.log(req.body.isSuperUser)
+        console.log('IS ADMIN : '+req.body.isSuperUser)
         if (req.body.isSuperUser) {
 
             if (err) {
@@ -191,14 +191,14 @@ module.exports = {
             }
             User.
             findAll()
-                .then((users) => {
-                    console.log(users)
-                    if (users.length > 0) {
+                .then((result) => {
+                    console.log(result)
+                    if (result.length > 0) {
                          res.status(200).send({
                             code: '00',
-                            error: false,
+                            error: false,   
                             message: 'success',
-                            data: users
+                            data: result
                         })
                     } else {
                          res.status(400).send({
