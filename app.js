@@ -8,9 +8,7 @@ const UtilAuth = require('./server/constant/UtilAuth')
 
 const app = express()
 app.use(cors())
-app.use(csrf({
-    cookie: true
-}))
+
 app.set('secretKey', 'nodeRestApi')
 app.use(bodyParser.urlencoded({
     extended: false
@@ -42,6 +40,7 @@ app.use('/api', users)
 app.use('/api/Util', Util)
 app.use('/api/movies', movies)
 app.use('/api/orders', PublicListOrder)
+
 //private route
 app.use('/api/customer', customer)
 app.use('/api/alamat', UtilAuth.validateUser, alamat)
