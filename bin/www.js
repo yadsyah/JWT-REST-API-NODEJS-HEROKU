@@ -4,7 +4,10 @@ const app = require('../app'); // The express app we just created
 
 const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
+console.log('TCL: ---------------');
+console.log('TCL: port', port);
+console.log('TCL: ---------------');
 
 const server = http.createServer(app);
-console.log('Server Berhasil Jalan Pada Port ',port);
+// console.log('Server Berhasil Jalan Pada Port ',port);
 server.listen(port);
