@@ -25,6 +25,19 @@ app.get('/', (req, res) => {
         github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU'
     })
 })
+app.get('/document',(req,res)=>{
+    res.status(200).send({
+        code:"00",
+        message:'Document Api Service',
+        UrlNoJWT:[
+            {
+                itemproduct: req.get('host')+'/api/itemproduct/all',
+                order: req.get('host')+'/api/orders/all',
+                tipeItem : req.get('host')+'/api/Util/tipeitem/all',
+                statusOrder: req.get('host')+'/api/Util/statusOrder/all',
+            }]
+    })
+})
 //Routes Import
 const users = require('./server/routes/user')
 const movies = require('./server/routes/movies')
