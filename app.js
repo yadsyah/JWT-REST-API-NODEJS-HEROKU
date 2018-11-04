@@ -22,7 +22,9 @@ app.get('/', (req, res) => {
         code: "00",
         message: 'Welcome to My REST API SERVICES',
         author: 'DIAN SETIYADI',
-        github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU'
+        github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU',
+        documentAPI : req.get('host')+'/document'
+    
     })
 })
 app.get('/document',(req,res)=>{
