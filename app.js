@@ -21,7 +21,8 @@ app.get('/', (req, res) => {
     res.status(200).send({
         code: "00",
         message: 'Welcome to My REST API SERVICES',
-        author: 'DIAN SETIYADI'
+        author: 'DIAN SETIYADI',
+        github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU'
     })
 })
 //Routes Import
