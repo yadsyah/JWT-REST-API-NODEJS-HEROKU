@@ -60,7 +60,8 @@ module.exports = {
             .findAll({
                 include: {
                     model: Alamat,
-                    as: 'alamats'
+                    as: 'alamats',
+                    attributes: ['address','kodepos','kota','negara']
                 }
             })
             .then((result) => {
@@ -80,7 +81,6 @@ module.exports = {
     },
     
     checkUsernameAvailability(req, res) {
-
         return User
             .findOne({
                 where: {
