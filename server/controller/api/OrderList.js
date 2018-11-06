@@ -113,27 +113,27 @@ module.exports = {
                 include: [{
                     model: StatusOrder,
                     as: 'statusOrders',
-                    attributes: ['id', 'name_status']
+                    attributes: ['name_status']
                 }, {
                     model: Customer,
                     as: 'customers',
-                    attributes: ['id', 'customername', 'nohp', 'email', 'tanggal_lahir', 'noktp'],
+                    attributes: ['customername', 'nohp', 'email', 'tanggal_lahir', 'noktp'],
                     include: {
                         model: Alamat,
                         as: 'alamats',
-                        attributes: ['id', 'address', 'kodepos', 'kota', 'negara']
+                        attributes: ['address', 'kodepos', 'kota', 'negara']
                     }
                 }, {
                     model: ItemProduct,
                     as: 'itemProducts',
-                    attributes: ['id', 'namaproduct', 'harga', 'stock', 'createdBy'],
+                    attributes: ['namaproduct', 'harga', 'stock', 'createdBy'],
                     include: {
                         model: TipeItem,
                         as: 'tipeItems',
-                        attributes: ['id', 'namaTipe']
+                        attributes: ['namaTipe']
                     }
                 }],
-                attributes: ['id', 'quantity', 'tanggal_order', 'createdBy']
+                attributes: ['id', 'quantity', 'tanggal_order', 'litemId','status_order','customerId','createdBy']
 
             })
             .then((result) => {
