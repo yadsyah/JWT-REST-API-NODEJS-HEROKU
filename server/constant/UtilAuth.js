@@ -8,6 +8,9 @@ function validateUser(req, res, next) {
             console.log('------------------------------------');
             console.log(err.status);
             console.log('------------------------------------');
+            console.log('------------------------------------');
+            console.log(err);
+            console.log('------------------------------------');
             if (err) {
                 if (err.message == 'jwt expired') {
                     return res.status(401).send({
