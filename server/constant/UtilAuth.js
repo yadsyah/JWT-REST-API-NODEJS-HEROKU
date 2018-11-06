@@ -3,7 +3,7 @@ function validateUser(req, res, next) {
     jwt.verify(req.headers['x-access-token'],
         req.app.get('secretKey'), (err, decoded) => {
             console.log('------------------------------------');
-            console.log(err.message);
+            console.log(err.name);
             console.log('------------------------------------');
             console.log('------------------------------------');
             console.log(err.status);
@@ -12,17 +12,17 @@ function validateUser(req, res, next) {
             console.log(err);
             console.log('------------------------------------');
             if (err) {
-                if (err.message == 'jwt expired') {
+                if (err.message == 'TokenExpiredError') {
                     return res.status(401).send({
                         code: err.status,
                         error: true,
                         message: 'Token Expired!',
                     })
-                } else if (err.status === 401) {
+                } else if (err.name === 'JsonWebTokenError') {
                     res.status(401).send({
                         code: err.status,
                         error: true,
-                        message: 'You Need Authorization First!',
+                        message: 'Harus melakukan Authorization terlebih dahulu!',
                     })
                 } else if (err.message == 'jwt malformed') {
                     res.status(401).send({

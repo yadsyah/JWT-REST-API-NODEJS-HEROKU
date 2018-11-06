@@ -79,12 +79,11 @@ app.use((err, req, res, next) => {
             code: 404,
             message: 'Path Not Found!'
         })
-    } else if (err.status === 401) {
-        res.status(401).json({
-            code: 401,
-            message: 'Tidak bisa akses harus ada izin atau otentikasi!'
-        })
-
+    // } else if (err.status === 401) {
+    //     res.status(401).json({
+    //         code: 401,
+    //         message: 'Tidak bisa akses harus ada izin atau otentikasi!'
+    //     })
     } else {
         res.status(500).json({
             message: 'Something looks Wrong:(!!!)',
