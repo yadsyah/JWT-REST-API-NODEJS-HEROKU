@@ -23,22 +23,21 @@ app.get('/', (req, res) => {
         message: 'Welcome to My REST API SERVICES',
         author: 'DIAN SETIYADI',
         github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU',
-        documentAPI : req.get('host')+'/document'
-    
-    }).catch((error)=> res.status(400).send(error))
+        documentAPI: req.get('host') + '/document'
+
+    }).catch((error) => res.status(400).send(error))
 })
-app.get('/document',(req,res)=>{
+app.get('/document', (req, res) => {
     res.status(200).send({
-        code:"00",
-        message:'Document Api Service',
-        UrlNoJWT:[
-            {
-                itemproduct: req.get('host')+'/api/itemproduct/all',
-                order: req.get('host')+'/api/orders/all',
-                tipeItem : req.get('host')+'/api/Util/tipeitem/all',
-                statusOrder: req.get('host')+'/api/Util/statusOrder/all',
-            }]
-    }).catch((error)=> res.status(400).send(error))
+        code: "00",
+        message: 'Document Api Service',
+        UrlNoJWT: [{
+            itemproduct: req.get('host') + '/api/itemproduct/all',
+            order: req.get('host') + '/api/orders/all',
+            tipeItem: req.get('host') + '/api/Util/tipeitem/all',
+            statusOrder: req.get('host') + '/api/Util/statusOrder/all',
+        }]
+    }).catch((error) => res.status(400).send(error))
 })
 //Routes Import
 const users = require('./server/routes/user')
@@ -80,6 +79,12 @@ app.use((err, req, res, next) => {
             code: 404,
             message: 'Path Not Found!'
         })
+    } else if (err.status === 401) {
+        res.status(401).json({
+            code: 401,
+            message: 'Tidak bisa akses harus ada izin atau otentikasi!'
+        })
+
     } else {
         res.status(500).json({
             message: 'Something looks Wrong:(!!!)',
