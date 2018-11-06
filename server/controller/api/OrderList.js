@@ -133,7 +133,7 @@ module.exports = {
                         attributes: ['namaTipe']
                     }
                 }],
-                attributes: ['id', 'quantity', 'tanggal_order', 'litemId','status_order','customerId','createdBy']
+                attributes: ['id', 'quantity', 'tanggal_order', 'itemId','status_order','customerId','createdBy']
 
             })
             .then((result) => {
