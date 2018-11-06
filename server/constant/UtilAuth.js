@@ -2,28 +2,34 @@ const jwt = require('jsonwebtoken')
 function validateUser(req, res, next) {
     jwt.verify(req.headers['x-access-token'],
         req.app.get('secretKey'), (err, decoded) => {
+            console.log('------------------------------------');
+            console.log(err.message);
+            console.log('------------------------------------');
+            console.log('------------------------------------');
+            console.log(err.status);
+            console.log('------------------------------------');
             if (err) {
                 if (err.message == 'jwt expired') {
                     return res.status(401).send({
-                        code: 99,
+                        code: err.status,
                         error: true,
                         message: 'Token Expired!',
                     })
-                } else if (err.message == 'jwt must be provided') {
+                } else if (err.status === 401) {
                     res.status(401).send({
-                        code: 99,
+                        code: err.status,
                         error: true,
                         message: 'You Need Authorization First!',
                     })
                 } else if (err.message == 'jwt malformed') {
                     res.status(401).send({
-                        code: 99,
+                        code: err.status,
                         error: true,
                         message: 'Token Format ERROR!'
                     })
                 } else {
                     res.json({
-                        code: 99,
+                        code: err.status,
                         error: true,
                         message: err.message,
                     })
