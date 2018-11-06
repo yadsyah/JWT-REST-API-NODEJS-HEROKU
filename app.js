@@ -72,18 +72,20 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    console.log(err.message)
+    console.log('------------------------------------');
+    console.log(err.message);
+    console.log('------------------------------------');
     if (err.status === 404) {
         console.log('Path URL NOT FOUND!')
         res.status(404).json({
             code: 404,
             message: 'Path Not Found!'
         })
-    // } else if (err.status === 401) {
-    //     res.status(401).json({
-    //         code: 401,
-    //         message: 'Tidak bisa akses harus ada izin atau otentikasi!'
-    //     })
+    } else if (err.status === 401) {
+        res.status(401).json({
+            code: 401,
+            message: 'Tidak bisa akses harus ada izin atau otentikasi!'
+        })
     } else {
         res.status(500).json({
             message: 'Something looks Wrong:(!!!)',
