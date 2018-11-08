@@ -163,7 +163,6 @@ module.exports = {
             })
     },
     checkEmailAvailability(req, res) {
-
         return User
             .findOne({
                 where: {

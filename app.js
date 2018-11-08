@@ -23,7 +23,8 @@ app.get('/', (req, res) => {
         message: 'Welcome to My REST API SERVICES',
         author: 'DIAN SETIYADI',
         github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU',
-        documentAPI: req.get('host') + '/document'
+        documentAPI: req.get('host') + '/document',
+        testHeorku: 'DEBUG'
 
     }).catch((error) => res.status(400).send(error))
 })
