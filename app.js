@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
         documentAPI: req.get('host') + '/document',
         testHeorku: 'DEBUG'
 
-    }).catch((error) => res.status(400).send(error))
+    })
 })
 app.get('/document', (req, res) => {
     res.status(200).send({
@@ -38,7 +38,7 @@ app.get('/document', (req, res) => {
             tipeItem: req.get('host') + '/api/Util/tipeitem/all',
             statusOrder: req.get('host') + '/api/Util/statusOrder/all',
         }]
-    }).catch((error) => res.status(400).send(error))
+    })
 })
 //Routes Import
 const users = require('./server/routes/user')
