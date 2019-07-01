@@ -1,7 +1,7 @@
 {
-  "name": "jwt-passport-js",
+  "name": "jwt-passport",
   "version": "1.0.0",
-  "description": "",
+  "description": "![Website](https://img.shields.io/website-up-down-green-red/http/shields.io.svg?label=my-website)\r ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)\r ![David](https://img.shields.io/david/sequelize/sequelize.svg)\r [![stable](http://badges.github.io/stability-badges/dist/stable.svg)](http://github.com/badges/stability-badges)\r [![GitHub issues](https://img.shields.io/github/issues/diyset/JWT-REST-API-NODEJS-HEROKU.svg)](https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU/issues)",
   "main": "index.js",
   "engines": {
     "npm": "6.4.0",
@@ -14,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
+    "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "csrf": "^3.0.6",
@@ -23,12 +24,26 @@
     "jsonwebtoken": "^8.3.0",
     "math-random": "^1.0.1",
     "morgan": "^1.9.1",
+    "mysql2": "^1.6.5",
     "nodemon": "^1.18.4",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
+    "qs": "^6.7.0",
     "seedrandom": "^2.4.4",
-    "sequelize": "^4.38.0",
+    "sequelize": "^5.8.12",
     "sequelize-cli": "^4.1.1",
     "uuid": "^3.3.2"
-  }
+  },
+  "bin": {
+    "jwt-passport": "www.js"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU/issues"
+  },
+  "homepage": "https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU#readme"
 }

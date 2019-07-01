@@ -1,5 +1,5 @@
 const User = require('../../db/models').User
-const bCrypt = require('bcrypt-nodejs')
+const bCrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const SeedRandom = require('seedrandom')
 
@@ -118,6 +118,29 @@ module.exports = {
                     }
                 }
             })
+    },
+    getUserById(req,res){
+    
+        return  User
+                .findOne({
+                    where: {
+                        id: req.params.userid
+                    }
+                }).then((result)=>{
+                    if(result){
+                        return res.status(200).send({
+                            code: '00',
+                            error: false,
+                            data: result
+                        })
+                    }
+                    return res.status(400).send({
+                        code: 99,
+                        error: true,
+                        message: 'Data Not Found!'
+                    })
+                }).catch((error) => res.status(400).send(error))
+                    
     },
     getUserByUsername(req, res) {
 

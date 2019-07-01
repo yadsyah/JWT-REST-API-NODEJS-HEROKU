@@ -8,4 +8,5 @@ router.post('/register', UtilAuth.validateUser, customerController.createCustome
 router.get('/all', UtilAuth.validateUser, customerController.getAll)
 router.get('/allRetrive', UtilAuth.validateUser, customerController.getAllRetrive)
 router.get('/allUser', customerController.getAllUser)
+router.get('/allUser/native',customerController.getAllUserByQueryNative)
 module.exports = router

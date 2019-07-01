@@ -1,6 +1,7 @@
 const Customer = require('../../db/models').Customer
 const Alamat = require('../../db/models').Alamat
 const User = require('../../db/models').User
+const Sequelize = require('../../db/models').sequelize
 module.exports = {
 
     getAll(req, res) {
@@ -47,6 +48,8 @@ module.exports = {
                 Customer
                     .create(payload)
                     .then((result) => {
+                        console.log(result.dataValues.id)
+                        
                         return res.status(201).send({
                             code: "00",
                             error: false,
@@ -61,7 +64,7 @@ module.exports = {
                 include: {
                     model: Alamat,
                     as: 'alamats',
-                    attributes: ['address','kodepos','kota','negara']
+                    attributes: ['address', 'kodepos', 'kota', 'negara']
                 }
             })
             .then((result) => {
@@ -79,7 +82,7 @@ module.exports = {
                 })
             }).catch((error) => res.status(400).send(error))
     },
-    
+
     checkUsernameAvailability(req, res) {
         return User
             .findOne({
@@ -108,5 +111,17 @@ module.exports = {
                     data: result
                 })
             }).catch((error) => res.status(400).send(error))
+    },
+    getAllUserByQueryNative(req, res) {
+        return Sequelize.query('SELECT * FROM `customers`', {
+            type: Sequelize.QueryTypes.SELECT
+        }).then(users => {
+            console.log(users)
+            res.status(200).send({
+                data: users
+            })
+        }).catch((error) => {
+            res.status(400).send(error)
+        })
     }
 }

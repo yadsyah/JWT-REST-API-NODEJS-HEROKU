@@ -1,7 +1,6 @@
 const Alamat = require('../../db/models').Alamat
 const Customer = require('../../db/models').Customer
 module.exports = {
-
     createAlamatByCustomerId(req, res) {
 
         return Customer

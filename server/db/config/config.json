@@ -1,6 +1,13 @@
 {
-  "development": {
+  "heroku": {
     "use_env_variable": "DATABASE_URL"
+  },
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "mynode",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",

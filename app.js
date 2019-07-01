@@ -50,12 +50,14 @@ const ItemProduct = require('./server/routes/itemproduct')
 const PublicListOrder = require('./server/routes/publicListOrder')
 const PrivateListOrder = require('./server/routes/privateListOrder')
 const PrivateCurrentUser = require('./server/routes/PrivateCurrentUser')
+const ChannelingRoute = require('./server/routes/ChannelingRoute')
 
 //public route
 app.use('/api', users)
 app.use('/api/Util', Util)
 app.use('/api/movies', movies)
 app.use('/api/orders', PublicListOrder)
+app.use('/api/channeling', ChannelingRoute)
 
 //private route
 app.use('/api/customer', customer)

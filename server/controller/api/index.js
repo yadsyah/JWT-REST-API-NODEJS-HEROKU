@@ -7,6 +7,8 @@ const TipeItem = require('./tipeitem');
 const ProductItem = require('./itemproduct')
 const ListOrder = require('./OrderList')
 const CurrentUser = require('./CurrentUser')
+const Channeling = require('./ChannelingPDS')
+const GetTokenPDS = require('./AuthTokenChanneling')
 module.exports = {
     User,
     Movie,
@@ -16,5 +18,7 @@ module.exports = {
     TipeItem,
     ProductItem,
     ListOrder,
-    CurrentUser
+    CurrentUser,
+    Channeling,
+    GetTokenPDS: GetTokenPDS
 }
