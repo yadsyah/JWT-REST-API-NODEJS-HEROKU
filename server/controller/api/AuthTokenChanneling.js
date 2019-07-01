@@ -37,7 +37,7 @@ const getTokenAsync = async (next) => {
     console.log('getTokenSync ' + token)
     return token;
 }
-const getToken = async () => {
+const getToken = () => {
     axios({
         url: URL + '/oauth/token',
         method: 'POST',
@@ -50,10 +50,13 @@ const getToken = async () => {
             'username': '9997',
             'password': 'pgd123!'
         })
-    }).then( async res => {
-        // console.log('res.data.access_token ' + res.data.access_token)
-        return await res.data.access_token;
+    }).then(async res => {
+        console.log('res.data.access_token ' + res.data.access_token)
+        return new Promise( () =>{
+            res.data.access_token
+        })
     }).catch((err) => {
+        console.log('ERROR')
         console.error(err)
     })
 }
