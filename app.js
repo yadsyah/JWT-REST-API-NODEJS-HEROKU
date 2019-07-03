@@ -7,6 +7,8 @@ const csrf = require('csrf')
 const UtilAuth = require('./server/constant/UtilAuth')
 
 const router = require('./server/routes/index')
+const loader = require('./server/loader/Loader')
+
 const app = express()
 app.use(cors())
 
@@ -67,6 +69,7 @@ app.get('/document', (req, res) => {
 // app.use('/api/account', UtilAuth.validateUser, PrivateCurrentUser)
 
 router(app);
+loader;
 
 
 app.use((req, res, next) => {
