@@ -9,16 +9,16 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   item_product.associate = function(models) {
   //   // associations can be defined here
-    item_product.belongsTo(models.TipeItem,{
-      foreignKey: 'tipe_item',
-      targetKey: 'id',
-      as: 'tipeItems'
-    })
-    item_product.hasMany(models.ListOrder,{
-      foreignKey: 'id',
-      targetKey:'itemId',
-      as:'listOrders'
-    })
+    // item_product.belongsTo(models.TipeItem,{
+    //   foreignKey: 'tipe_item',
+    //   targetKey: 'id',
+    //   as: 'tipeItems'
+    // })
+    // item_product.hasMany(models.ListOrder,{
+    //   foreignKey: 'id',
+    //   targetKey:'itemId',
+    //   as:'listOrders'
+    // })
   };
   return item_product;
 };

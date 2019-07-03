@@ -59,6 +59,9 @@ module.exports = {
             })
     },
     authenticate(req, res, next) {
+        const payload = {
+            uniqueId: req.body.uniqueId
+        }
         return User
             .findOne({
                 where: {
@@ -91,16 +94,27 @@ module.exports = {
                                     id: userInfo.id,
                                     name: userInfo.name,
                                     kodeKaryawan: userInfo.kode_karyawan,
-                                    isSuperUser: userInfo.isAdmin
+                                    isSuperUser: userInfo.isAdmin,
                                 }, req.app.get('secretKey'), {
                                         expiresIn: '1h'
                                     })
-                                res.status(202).send({
-                                    status: 'success',
-                                    message: 'User Found!',
-                                    isSuperUser: userInfo.isAdmin,
-                                    token: token
-                                })
+                                if (payload.uniqueId === null || payload.uniqueId === '') {
+                                    res.status(202).send({
+                                        status: 'success',
+                                        message: 'User Found!',
+                                        isSuperUser: userInfo.isAdmin,
+                                        token: token,
+                                        uniqueId: 0
+                                    })
+                                } else {
+                                    res.status(202).send({
+                                        status: 'success',
+                                        message: 'User Found!',
+                                        isSuperUser: userInfo.isAdmin,
+                                        token: token,
+                                        uniqueId: payload.uniqueId
+                                    })
+                                }
                             }
                         } else {
                             res.status(400).send({

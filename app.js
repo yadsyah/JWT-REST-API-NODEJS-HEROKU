@@ -6,6 +6,7 @@ const csrf = require('csrf')
 
 const UtilAuth = require('./server/constant/UtilAuth')
 
+const router = require('./server/routes/index')
 const app = express()
 app.use(cors())
 
@@ -40,30 +41,32 @@ app.get('/document', (req, res) => {
     })
 })
 //Routes Import
-const users = require('./server/routes/user')
-const movies = require('./server/routes/movies')
-const customer = require('./server/routes/customer')
-const alamat = require('./server/routes/alamat')
-const Util = require('./server/routes/Util')
-const ItemProduct = require('./server/routes/itemproduct')
-const PublicListOrder = require('./server/routes/publicListOrder')
-const PrivateListOrder = require('./server/routes/privateListOrder')
-const PrivateCurrentUser = require('./server/routes/PrivateCurrentUser')
-const ChannelingRoute = require('./server/routes/ChannelingRoute')
+// const users = require('./server/routes/user')
+// const movies = require('./server/routes/movies')
+// const customer = require('./server/routes/customer')
+// const alamat = require('./server/routes/alamat')
+// const Util = require('./server/routes/Util')
+// const ItemProduct = require('./server/routes/itemproduct')
+// const PublicListOrder = require('./server/routes/publicListOrder')
+// const PrivateListOrder = require('./server/routes/privateListOrder')
+// const PrivateCurrentUser = require('./server/routes/PrivateCurrentUser')
+// const ChannelingRoute = require('./server/routes/ChannelingRoute')
 
-//public route
-app.use('/api', users)
-app.use('/api/Util', Util)
-app.use('/api/movies', movies)
-app.use('/api/orders', PublicListOrder)
-app.use('/api/channeling', ChannelingRoute)
+// //public route
+// app.use('/api', users)
+// app.use('/api/Util', Util)
+// app.use('/api/movies', movies)
+// app.use('/api/orders', PublicListOrder)
+// app.use('/api/channeling', ChannelingRoute)
 
-//private route
-app.use('/api/customer', customer)
-app.use('/api/alamat', UtilAuth.validateUser, alamat)
-app.use('/api/itemproduct', ItemProduct)
-app.use('/api/orders', UtilAuth.validateUser, PrivateListOrder)
-app.use('/api/account', UtilAuth.validateUser, PrivateCurrentUser)
+// //private route
+// app.use('/api/customer', customer)
+// app.use('/api/alamat', UtilAuth.validateUser, alamat)
+// app.use('/api/itemproduct', ItemProduct)
+// app.use('/api/orders', UtilAuth.validateUser, PrivateListOrder)
+// app.use('/api/account', UtilAuth.validateUser, PrivateCurrentUser)
+
+router(app);
 
 
 app.use((req, res, next) => {
