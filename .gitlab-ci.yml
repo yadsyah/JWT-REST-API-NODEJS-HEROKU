@@ -10,7 +10,7 @@ production:
       - apt-get update -qy
       - apt-get install -y ruby-dev
       - gem install dpl
-      - dpl --provider=heroku --app=$HEROKU_APP_PROD App --api-key=$HEROKU_API_KEY_PROD # security add the heroku api to CI/CD setting
+      - dpl --provider=heroku --app=$HEROKU_APP_PROD --api-key=$HEROKU_API_KEY_PROD # security add the heroku api to CI/CD setting
   only:
       - master #branch name to deploy on heroku
 development:
@@ -21,6 +21,6 @@ development:
       - apt-get update -qy
       - apt-get install -y ruby-dev
       - gem install dpl
-      - dpl --provider=heroku --app=$HEROKU_APP_DEV App --api-key=$HEROKU_API_KEY_DEV # security add the heroku api to CI/CD setting
+      - dpl --provider=heroku --app=$HEROKU_APP_DEV --api-key=$HEROKU_API_KEY_DEV # security add the heroku api to CI/CD setting
   only:
       - dev #branch name to deploy on heroku      
