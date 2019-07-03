@@ -30,8 +30,8 @@ module.exports = {
     },
     createParam(req, res) {
         payload = {
-            key: req.body.key_,
-            value: req.body.value_,
+            KEY_: req.body.key_,
+            VALUE_: req.body.value_,
             description: req.body.description
         }
         return new Promise((resolve, reject) => {
@@ -44,12 +44,44 @@ module.exports = {
                         data: result
                     }))
                 }).catch((err) => {
+                    console.error(err)
                     reject(res.status(500).send({
                         code: "99",
                         error: true,
                         data: err
                     }))
                 })
+        })
+    },
+    getParamByKey(req, res) {
+        return new Promise((resolve, reject) => {
+            TblParam.findOne({
+                where: {
+                    KEY_: req.body.key_
+                },
+                attributes: ['KEY_', 'VALUE_', 'description']
+            }).then((result) => {
+                if (result) {
+                    resolve(res.status(200).send({
+                        code: "00",
+                        error: false,
+                        data: result
+                    }))
+                } else {
+                    reject(res.status(200).send({
+                        code: "80",
+                        error: true,
+                        message: 'Data Not Found!'
+                    }))
+                }
+            }).catch((err) => {
+                console.error(err)
+                reject(res.status(200).send({
+                    code: "80",
+                    error: true,
+                    message: err
+                }))
+            })
         })
     }
 }

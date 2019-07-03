@@ -9,6 +9,7 @@ const routes = [
     // require('./privateListOrder'),
     require('./PrivateCurrentUser'),
     // require('./ChannelingRoute')
+    require('./ParamRoute'),
 ]
 const router = (app) => {
     return routes.forEach((route) => {

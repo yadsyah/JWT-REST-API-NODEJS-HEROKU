@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const csrf = require('csrf')
 
+
 const UtilAuth = require('./server/constant/UtilAuth')
 
 const router = require('./server/routes/index')
@@ -17,6 +18,16 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 app.use(morgan('combined'))
 
+
+const opts = {
+    errorEventName: 'error',
+    logDirectory: '/logfiles', // NOTE: folder must exist and be writable...
+    fileNamePattern: 'roll-error-<DATE>.log',
+    dateFormat: 'YYYY.MM.DD'
+};
+const logger = require('simple-node-logger').createRollingFileLogger(opts)
+logger.createSimpleFileLogger('project.log')
+app.use(logger)
 //Index
 app.get('/', (req, res) => {
     res.status(200).send({
@@ -40,31 +51,6 @@ app.get('/document', (req, res) => {
         }]
     })
 })
-//Routes Import
-// const users = require('./server/routes/user')
-// const movies = require('./server/routes/movies')
-// const customer = require('./server/routes/customer')
-// const alamat = require('./server/routes/alamat')
-// const Util = require('./server/routes/Util')
-// const ItemProduct = require('./server/routes/itemproduct')
-// const PublicListOrder = require('./server/routes/publicListOrder')
-// const PrivateListOrder = require('./server/routes/privateListOrder')
-// const PrivateCurrentUser = require('./server/routes/PrivateCurrentUser')
-// const ChannelingRoute = require('./server/routes/ChannelingRoute')
-
-// //public route
-// app.use('/api', users)
-// app.use('/api/Util', Util)
-// app.use('/api/movies', movies)
-// app.use('/api/orders', PublicListOrder)
-// app.use('/api/channeling', ChannelingRoute)
-
-// //private route
-// app.use('/api/customer', customer)
-// app.use('/api/alamat', UtilAuth.validateUser, alamat)
-// app.use('/api/itemproduct', ItemProduct)
-// app.use('/api/orders', UtilAuth.validateUser, PrivateListOrder)
-// app.use('/api/account', UtilAuth.validateUser, PrivateCurrentUser)
 
 router(app);
 

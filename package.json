@@ -33,6 +33,7 @@
     "seedrandom": "^2.4.4",
     "sequelize": "^5.8.12",
     "sequelize-cli": "^4.1.1",
+    "simple-node-logger": "^18.12.22",
     "uuid": "^3.3.2"
   },
   "bin": {
