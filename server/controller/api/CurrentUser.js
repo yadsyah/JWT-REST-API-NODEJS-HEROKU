@@ -24,7 +24,7 @@ module.exports = {
                 }
             }).catch((error) => {
                 console.log(error)
-                returnres.status(400).send({
+                return res.status(400).send({
                     code: "90",
                     error: true,
                     data: error
