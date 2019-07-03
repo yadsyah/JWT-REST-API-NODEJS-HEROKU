@@ -24,8 +24,7 @@ app.get('/', (req, res) => {
         author: 'DIAN SETIYADI',
         github: 'https://github.com/diyset/JWT-REST-API-NODEJS-HEROKU',
         documentAPI: req.get('host') + '/document',
-        testHeorku: 'DEBUG'
-
+        testHeroku: 'DEBUG'
     })
 })
 app.get('/document', (req, res) => {
