@@ -52,8 +52,12 @@ const getToken = () => {
                 'password': 'pgd123!'
             })
         }).then(res => {
-            // console.log(res.data.access_token)
-            resolve(res.data.access_token)
+            console.log(res.data)
+            if (res.data.access_token != null) {
+                resolve(res.data.access_token)
+            } else {
+                reject('ERROR')
+            }
         }).catch((err) => {
             console.log('ERROR')
             console.error(err)

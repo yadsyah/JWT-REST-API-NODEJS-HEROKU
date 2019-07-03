@@ -9,14 +9,13 @@ module.exports = {
     getHargaEmas(req, res) {
 
         GetToken.getToken().then((token) => {
-            console.log(token)
 
             axios({
                 url: URL + '/param/hargaemas',
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer '+token
+                    'Authorization': 'Bearer ' + token
                 },
                 data: {
                     "clientId": "9997",
