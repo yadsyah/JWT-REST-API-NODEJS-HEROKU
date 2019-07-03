@@ -9,6 +9,7 @@ const ListOrder = require('./OrderList')
 const CurrentUser = require('./CurrentUser')
 const Channeling = require('./ChannelingPDS')
 const GetTokenPDS = require('./AuthTokenChanneling')
+const TblParamController = require('./ControllerParam')
 module.exports = {
     User,
     Movie,
@@ -20,5 +21,6 @@ module.exports = {
     ListOrder,
     CurrentUser,
     Channeling,
-    GetTokenPDS: GetTokenPDS
+    GetTokenPDS: GetTokenPDS,
+    TblParamController: TblParamController
 }

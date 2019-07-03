@@ -90,6 +90,7 @@ module.exports = {
                                     token: token
                                 })
                             } else {
+                                console.log('not admin')
                                 const token = jwt.sign({
                                     id: userInfo.id,
                                     name: userInfo.name,
@@ -98,15 +99,17 @@ module.exports = {
                                 }, req.app.get('secretKey'), {
                                         expiresIn: '1h'
                                     })
-                                if (payload.uniqueId === null || payload.uniqueId === '') {
+                                if (payload.uniqueId === '0') {
+                                    console.log('WEB')
                                     res.status(202).send({
                                         status: 'success',
                                         message: 'User Found!',
                                         isSuperUser: userInfo.isAdmin,
                                         token: token,
-                                        uniqueId: 0
+                                        uniqueId: '0'
                                     })
                                 } else {
+                                    console.log('MOBILE')
                                     res.status(202).send({
                                         status: 'success',
                                         message: 'User Found!',
