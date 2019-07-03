@@ -2,7 +2,7 @@ const User = require('../../db/models').User
 
 module.exports = {
     getMeUser(req, res) {
-        return User
+        User
             .findOne({
                 where: {
                     id: req.body.userId
@@ -15,10 +15,20 @@ module.exports = {
                         error: false,
                         data: result
                     })
+                } else {
+                    return res.status(200).send({
+                        code: "00",
+                        error: true,
+                        data: 'Data not found!'
+                    })
                 }
             }).catch((error) => {
                 console.log(error)
-                res.status(400).send(error)
+                returnres.status(400).send({
+                    code: "90",
+                    error: true,
+                    data: error
+                })
             })
     }
 }
