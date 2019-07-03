@@ -1,10 +1,9 @@
 image: node:latest
 stages:
-- production
-- development
-production:
+- deploy
+deploy-production:
   type: deploy
-  stage: production
+  stage: deploy
   image: ruby:latest
   script:
       - apt-get update -qy
@@ -13,9 +12,10 @@ production:
       - dpl --provider=heroku --app=$HEROKU_APP_PROD --api-key=$HEROKU_API_KEY_PROD # security add the heroku api to CI/CD setting
   only:
       - master #branch name to deploy on heroku
-development:
+
+deploy-development:
   type: deploy
-  stage: development
+  stage: deploy
   image: ruby:latest
   script:
       - apt-get update -qy
@@ -23,4 +23,4 @@ development:
       - gem install dpl
       - dpl --provider=heroku --app=$HEROKU_APP_DEV --api-key=$HEROKU_API_KEY_DEV # security add the heroku api to CI/CD setting
   only:
-      - dev #branch name to deploy on heroku      
+      - development #branch name to deploy on heroku      
