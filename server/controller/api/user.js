@@ -78,8 +78,8 @@ module.exports = {
                                     kodeKaryawan: userInfo.kode_karyawan,
                                     isSuperUser: userInfo.isAdmin
                                 }, req.app.get('secretKey'), {
-                                    expiresIn: '24h'
-                                })
+                                        expiresIn: '24h'
+                                    })
                                 res.status(202).send({
                                     status: 'success',
                                     message: 'User Found!',
@@ -93,8 +93,8 @@ module.exports = {
                                     kodeKaryawan: userInfo.kode_karyawan,
                                     isSuperUser: userInfo.isAdmin
                                 }, req.app.get('secretKey'), {
-                                    expiresIn: '1h'
-                                })
+                                        expiresIn: '1h'
+                                    })
                                 res.status(202).send({
                                     status: 'success',
                                     message: 'User Found!',
@@ -119,28 +119,28 @@ module.exports = {
                 }
             })
     },
-    getUserById(req,res){
-    
-        return  User
-                .findOne({
-                    where: {
-                        id: req.params.userid
-                    }
-                }).then((result)=>{
-                    if(result){
-                        return res.status(200).send({
-                            code: '00',
-                            error: false,
-                            data: result
-                        })
-                    }
-                    return res.status(400).send({
-                        code: 99,
-                        error: true,
-                        message: 'Data Not Found!'
+    getUserById(req, res) {
+
+        return User
+            .findOne({
+                where: {
+                    id: req.params.userid
+                }
+            }).then((result) => {
+                if (result) {
+                    return res.status(200).send({
+                        code: '00',
+                        error: false,
+                        data: result
                     })
-                }).catch((error) => res.status(400).send(error))
-                    
+                }
+                return res.status(400).send({
+                    code: 99,
+                    error: true,
+                    message: 'Data Not Found!'
+                })
+            }).catch((error) => res.status(400).send(error))
+
     },
     getUserByUsername(req, res) {
 
@@ -183,6 +183,11 @@ module.exports = {
                         available: false,
                     })
                 }
+            }).catch((err) => {
+                return res.status(500).send({
+                    error: true,
+                    message: err
+                })
             })
     },
     checkEmailAvailability(req, res) {
@@ -208,7 +213,7 @@ module.exports = {
         console.log('IS ADMIN : ' + req.body.isSuperUser)
         if (req.body.isSuperUser) {
             return User.
-            findAll()
+                findAll()
                 .then((result) => {
                     console.log(result)
                     if (result.length > 0) {
