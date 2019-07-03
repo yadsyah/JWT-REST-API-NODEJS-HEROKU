@@ -38,26 +38,26 @@ const getTokenAsync = async (next) => {
     return token;
 }
 const getToken = () => {
-    axios({
-        url: URL + '/oauth/token',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic YXBsaWthc2lwZHM6cGdkMTIzIQ=='
-        },
-        data: qs.stringify({
-            'grant_type': 'password',
-            'username': '9997',
-            'password': 'pgd123!'
+    return new Promise((resolve, reject) => {
+        axios({
+            url: URL + '/oauth/token',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic YXBsaWthc2lwZHM6cGdkMTIzIQ=='
+            },
+            data: qs.stringify({
+                'grant_type': 'password',
+                'username': '9997',
+                'password': 'pgd123!'
+            })
+        }).then(res => {
+            // console.log(res.data.access_token)
+            resolve(res.data.access_token)
+        }).catch((err) => {
+            console.log('ERROR')
+            console.error(err)
         })
-    }).then(async res => {
-        console.log('res.data.access_token ' + res.data.access_token)
-        return new Promise( () =>{
-            res.data.access_token
-        })
-    }).catch((err) => {
-        console.log('ERROR')
-        console.error(err)
     })
 }
 function getFunctionTest() {
