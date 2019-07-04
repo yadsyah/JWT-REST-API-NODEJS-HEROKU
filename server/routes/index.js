@@ -8,7 +8,7 @@ const routes = [
     // require('./publicListOrder'),
     // require('./privateListOrder'),
     require('./PrivateCurrentUser'),
-    // require('./ChannelingRoute')
+    require('./ChannelingRoute'),
     require('./ParamRoute'),
 ]
 const router = (app) => {

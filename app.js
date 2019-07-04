@@ -18,16 +18,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 app.use(morgan('combined'))
 
-
-const opts = {
-    errorEventName: 'error',
-    logDirectory: '/logfiles', // NOTE: folder must exist and be writable...
-    fileNamePattern: 'roll-error-<DATE>.log',
-    dateFormat: 'YYYY.MM.DD'
-};
-const logger = require('simple-node-logger').createRollingFileLogger(opts)
-logger.createSimpleFileLogger('project.log')
-app.use(logger)
 //Index
 app.get('/', (req, res) => {
     res.status(200).send({
