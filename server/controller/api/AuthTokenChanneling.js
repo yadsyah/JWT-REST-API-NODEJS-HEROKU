@@ -52,7 +52,6 @@ const getToken = () => {
                 'password': 'pgd123!'
             })
         }).then(res => {
-            console.log(res.data)
             if (res.data.access_token != null) {
                 resolve(res.data.access_token)
             } else {
@@ -64,11 +63,8 @@ const getToken = () => {
         })
     })
 }
-function getFunctionTest() {
-    return '1234'
-}
+
 module.exports = {
     getToken: getToken,
-    getFunctionTest: getFunctionTest,
     getTokenAsync: getTokenAsync
 }

@@ -49,7 +49,7 @@ module.exports = {
                     .create(payload)
                     .then((result) => {
                         console.log(result.dataValues.id)
-                        
+
                         return res.status(201).send({
                             code: "00",
                             error: false,
