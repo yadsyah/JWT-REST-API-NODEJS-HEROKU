@@ -1,6 +1,6 @@
 const userController = require('../controller/api/ControllerUser');
 const UtilAuth = require('../constant/UtilAuth')
-
+const currentUser = require('../controller/api').CurrentUser
 module.exports = (app) => {
     app.post('/api/auth/register', userController.create)
     app.post('/api/auth/authenticate', userController.authenticate)
@@ -8,5 +8,6 @@ module.exports = (app) => {
     app.get('/api/user/get/:userid', userController.getUserById)
     app.get('/api/user/checkUsernameAvailability/:username', userController.checkUsernameAvailability)
     app.get('/api/user/checkEmailAvailability/:email', userController.checkEmailAvailability)
-    app.get('/api/users/all', UtilAuth.validateUser, userController.getAllUser)
+    app.get('/api/users/all', [UtilAuth.validateUser], userController.getAllUser)
+    app.get('/api/account/me', [UtilAuth.validateUser], currentUser.getMeUser)
 }

@@ -3,15 +3,6 @@ const jwt = require('jsonwebtoken')
 function validateUser(req, res, next) {
     jwt.verify(req.headers['x-access-token'],
         req.app.get('secretKey'), (err, decoded) => {
-            // console.log('------------------------------------');
-            // console.log(err.name);
-            // console.log('------------------------------------');
-            // console.log('------------------------------------');
-            // console.log(err.status);
-            // console.log('------------------------------------');
-            // console.log('------------------------------------');
-            // console.log(err);
-            // console.log('------------------------------------');
             if (err) {
                 if (err.name === 'TokenExpiredError' && err.message === 'jwt expired') {
                     return res.status(401).send({

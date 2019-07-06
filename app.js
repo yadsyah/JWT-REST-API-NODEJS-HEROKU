@@ -2,18 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
-const csrf = require('csrf')
-
-
-const UtilAuth = require('./server/constant/UtilAuth')
-
 const router = require('./server/routes/index')
 const loader = require('./server/loader/Loader')
 
 const app = express()
 app.use(cors())
 
+// Mau mindahin ke variable heroku atau gitlab secret key
 app.set('secretKey', 'nodeRestApi')
+
 app.use(bodyParser.urlencoded({
     extended: false
 }))
@@ -44,7 +41,9 @@ app.get('/document', (req, res) => {
     })
 })
 
+// Router 
 router(app);
+// Redis
 loader;
 
 
