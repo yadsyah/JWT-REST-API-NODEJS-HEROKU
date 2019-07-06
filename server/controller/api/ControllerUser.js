@@ -87,7 +87,9 @@ module.exports = {
                                     status: 'success',
                                     message: 'User Found!',
                                     isSuperUser: userInfo.isAdmin,
-                                    token: token
+                                    token: token,
+                                    uniqueId: '0',
+                                    data: userInfo
                                 })
                             } else {
                                 console.log('not admin')
@@ -96,6 +98,7 @@ module.exports = {
                                     name: userInfo.name,
                                     kodeKaryawan: userInfo.kode_karyawan,
                                     isSuperUser: userInfo.isAdmin,
+
                                 }, req.app.get('secretKey'), {
                                         expiresIn: '1h'
                                     })
@@ -106,7 +109,8 @@ module.exports = {
                                         message: 'User Found!',
                                         isSuperUser: userInfo.isAdmin,
                                         token: token,
-                                        uniqueId: '0'
+                                        uniqueId: '0',
+                                        data: userInfo
                                     })
                                 } else {
                                     console.log('MOBILE')
