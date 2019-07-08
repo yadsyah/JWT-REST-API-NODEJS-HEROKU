@@ -1,8 +1,11 @@
-const TblParamController = require('../controller/api/ControllerParam');
-// const UtilAuth = require('../constant/UtilAuth')
+const controller = require('../controller/api/ControllerParam');
+const authJwt = require('../utils/verifyJwtToken');
+const verifySignUp = require('../utils/verifySignUp');
 
 module.exports = (app) => {
-    app.get('/api/param/all', TblParamController.getAll)
-    app.post('/api/param/create', TblParamController.createParam)
-    app.get('/api/param/get', TblParamController.getParamByKey)
-}
+    app.post('/api/param', [authJwt.verifyToken], controller.create);
+    app.get('/api/param', [authJwt.verifyToken, verifySignUp.isAdmin], controller.findAll);
+    app.get('/api/param/:key_', [authJwt.verifyToken], controller.findByKey);
+    app.put('/api/param/:key_', [authJwt.verifyToken], controller.update);
+    app.delete('/api/param/:key_', [authJwt.verifyToken], controller.delete);
+};

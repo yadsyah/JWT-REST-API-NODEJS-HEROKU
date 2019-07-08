@@ -1,10 +1,12 @@
 const client = require('../loader/redis.config');
-const tblParam = require('../db/models/tbl_param');
+const TblParam = require('../db/models').TblParam;
 
 const Load = () => {
-    tblParam.findAll().then(params => {
+    TblParam.findAll().then(params => {
         params.forEach(param => {
-            client.setValue((param.KEY_), JSON.stringify(param));
+            client.setValue("PARAM:".concat(param.key_), JSON.stringify(param)).then(()=>{
+                console.log("");
+            });
         })
     })
 };

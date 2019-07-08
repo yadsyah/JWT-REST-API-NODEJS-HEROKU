@@ -1,9 +1,9 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const cors = require('cors')
-const router = require('./server/routes/index')
-const loader = require('./server/loader/Loader')
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const cors = require('cors');
+const router = require('./server/routes/index');
+const loader = require('./server/loader/Loader');
 
 const app = express()
 app.use(cors())

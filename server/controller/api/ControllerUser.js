@@ -1,273 +1,212 @@
-const User = require('../../db/models').User
-const bCrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const SeedRandom = require('seedrandom')
+const User = require('../../db/models').TblUser;
+const Group = require('../../db/models').TblGroup;
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const db = require('../../db/models/index');
+const Op = db.Sequelize.Op;
 
-module.exports = {
-    create(req, res) {
+exports.signUp = (req, res) => {
+    // let generateKodeKaryawan = (name, email) => {
+    //     return 'P' + Math.abs(SeedRandom(name + email).int32());
+    // };
+    const generateCrypt = (password) => {
+        return bcrypt.hashSync(password, 8);
+    };
+    User.create({
+        username: req.body.username,
+        name: req.body.name,
+        email: req.body.email,
+        password: generateCrypt(req.body.password),
+        groupId: req.body.groupId
+    }).then((result, err) => {
+        if (err) {
+            next(err);
+        } else {
+            res.json({
+                status: "success",
+                message: "User Added successfully!!",
+            })
+        }
+    }).catch((error) =>{
+        res.status(400).send(error)
+    });
+};
 
-        var generateKodeKaryawan = (name, email) => {
-            return 'P' + Math.abs(SeedRandom(name + email).int32());
+exports.signIn = (req, res) => {
+    User.findOne({
+        where: {
+            [Op.or]: [
+                {username: req.body.username},
+                {email: req.body.email}
+            ]
+        }
+    }).then(user => {
+        if (!user) {
+            return res.status(404).send({
+                code: 99,
+                error: true,
+                message: 'User Not Found!'
+            });
         }
 
-        payload = {
-            name: req.body.name,
-            email: req.body.email,
-            kode_karyawan: generateKodeKaryawan(req.body.name),
-            isAdmin: req.body.isadmin
+        const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+        if (!passwordIsValid) {
+            return res.status(401).send({
+                auth: false,
+                accessToken: null,
+                reason: 'Invalid Password!'
+            });
         }
-
-        let generateCrypt = (password) => {
-            return bCrypt.hashSync(password, bCrypt.genSaltSync(4), null);
-        }
-        let userPassword = generateCrypt(req.body.password)
-
-        return User
-            .findOne({
-                where: {
-                    username: req.body.username,
-                    email: req.body.email
-                }
-            })
-            .then((result) => {
-                if (result) {
-                    return res.status(400).send({
-                        code: 90,
-                        error: true,
-                        message: 'Username sudah ada!'
-                    })
-                }
-                User
-                    .create({
-                        name: req.body.name,
-                        email: req.body.email,
-                        kode_karyawan: generateKodeKaryawan(req.body.name, req.body.email).substring(0, 5),
-                        password: userPassword,
-                        username: req.body.username,
-                        isAdmin: req.body.isAdmin ? 1 : 0
-                    })
-                    .then((result, err) => {
-                        if (err) {
-                            next(err);
-                        } else {
-                            res.json({
-                                status: "success",
-                                message: "User Added successfully!!",
-                            })
-                        }
-                    })
-            })
-    },
-    authenticate(req, res, next) {
-        const payload = {
-            uniqueId: req.body.uniqueId
-        }
-        return User
-            .findOne({
-                where: {
-                    email: req.body.email
-                }
-            })
-            .then((userInfo, err) => {
-                if (err) {
-                    next(err)
-                } else {
-                    if (userInfo) {
-                        if (bCrypt.compareSync(req.body.password, userInfo.password)) {
-                            if (userInfo.isAdmin) {
-                                const token = jwt.sign({
-                                    id: userInfo.id,
-                                    name: userInfo.name,
-                                    kodeKaryawan: userInfo.kode_karyawan,
-                                    isSuperUser: userInfo.isAdmin
-                                }, req.app.get('secretKey'), {
-                                        expiresIn: '24h'
-                                    })
-                                res.status(202).send({
-                                    status: 'success',
-                                    message: 'User Found!',
-                                    isSuperUser: userInfo.isAdmin,
-                                    token: token,
-                                    uniqueId: '0',
-                                    data: userInfo
-                                })
-                            } else {
-                                console.log('not admin')
-                                const token = jwt.sign({
-                                    id: userInfo.id,
-                                    name: userInfo.name,
-                                    kodeKaryawan: userInfo.kode_karyawan,
-                                    isSuperUser: userInfo.isAdmin,
-
-                                }, req.app.get('secretKey'), {
-                                        expiresIn: '1h'
-                                    })
-                                if (payload.uniqueId === '0') {
-                                    console.log('WEB')
-                                    res.status(202).send({
-                                        status: 'success',
-                                        message: 'User Found!',
-                                        isSuperUser: userInfo.isAdmin,
-                                        token: token,
-                                        uniqueId: '0',
-                                        data: userInfo
-                                    })
-                                } else {
-                                    console.log('MOBILE')
-                                    res.status(202).send({
-                                        status: 'success',
-                                        message: 'User Found!',
-                                        isSuperUser: userInfo.isAdmin,
-                                        token: token,
-                                        uniqueId: payload.uniqueId
-                                    })
-                                }
-                            }
-                        } else {
-                            res.status(400).send({
-                                code: 90,
-                                error: true,
-                                message: 'Invalid Password/Email'
-                            })
-                        }
-                    } else {
-                        res.status(400).send({
-                            code: 90,
-                            error: true,
-                            message: 'Email is Never Register!'
-                        })
-                    }
-                }
-            })
-    },
-    getUserById(req, res) {
-
-        return User
-            .findOne({
-                where: {
-                    id: req.params.userid
-                }
-            }).then((result) => {
-                if (result) {
-                    return res.status(200).send({
-                        code: '00',
-                        error: false,
-                        data: result
-                    })
-                }
-                return res.status(400).send({
+        Group.findOne({
+            where: {
+                groupId: user.groupId
+            }
+        }).then(group => {
+            if (group) {
+                const token = jwt.sign(
+                    { id: user.id },
+                    req.app.get('secretKey'),
+                    { expiresIn: 86400 } // expires in 24 hours
+                );
+                return res.status(200).send({
+                    auth: true,
+                    accessToken: token,
+                    username: user.username,
+                    groupId: group.groupId
+                })
+            } else {
+                return res.status(404).send({
                     code: 99,
                     error: true,
-                    message: 'Data Not Found!'
-                })
-            }).catch((error) => res.status(400).send(error))
+                    message: 'User Not Found!'
+                });
+            }
+        }).catch(err =>{
+            res.status(500).send({ reason: err.message });
+        })
+    }).catch(err => {
+        res.status(500).send({ reason: err.message });
+    });
+};
 
-    },
-    getUserByUsername(req, res) {
-
-        return User
-            .findOne({
-                where: {
-                    username: req.params.username
-                }
+exports.getUserById = (req, res) => {
+    return User.findOne({
+        where: {
+            id: req.params.userid
+        }
+    }).then((result) => {
+        if (result) {
+            return res.status(200).send({
+                code: '00',
+                error: false,
+                data: result
             })
-            .then((result) => {
-                if (result) {
-                    return res.status(200).send({
-                        code: '00',
-                        error: false,
-                        data: result
-                    })
-                }
-                return res.status(400).send({
-                    code: 99,
-                    error: true,
-                    message: 'Data Not Found!'
-                })
-            }).catch((error) => res.status(400).send(error))
-    },
-    checkUsernameAvailability(req, res) {
-
-        return User
-            .findOne({
-                where: {
-                    username: req.params.username
-                }
-            })
-            .then((result) => {
-                if (!result) {
-                    return res.status(200).send({
-                        available: true,
-                    })
-                } else {
-                    return res.status(200).send({
-                        available: false,
-                    })
-                }
-            }).catch((err) => {
-                return res.status(500).send({
-                    error: true,
-                    message: err
-                })
-            })
-    },
-    checkEmailAvailability(req, res) {
-        return User
-            .findOne({
-                where: {
-                    email: req.params.email
-                }
-            })
-            .then((result) => {
-                if (!result) {
-                    return res.status(200).send({
-                        available: true,
-                    })
-                } else {
-                    return res.status(200).send({
-                        available: false,
-                    })
-                }
-            })
-    },
-    getAllUser(req, res) {
-        console.log('IS ADMIN : ' + req.body.isSuperUser)
-        if (req.body.isSuperUser) {
-            return User.
-                findAll()
-                .then((result) => {
-                    console.log(result)
-                    if (result.length > 0) {
-                        res.status(200).send({
-                            code: '00',
-                            error: false,
-                            message: 'success',
-                            data: result
-                        })
-                    } else {
-                        res.status(400).send({
-                            code: 90,
-                            error: true,
-                            message: 'Data Not Found!'
-                        })
-                    }
-                }).catch((error) => res.status(400).send(error))
         }
         return res.status(400).send({
-            code: 02,
+            code: 99,
             error: true,
-            message: 'User Not Authorization/Previledge For This Request!'
+            message: 'Data Not Found!'
         })
-    },
-    getAllUsers(req, res) {
-        return User
-            .findAll()
-            .then(result => {
-                console.log('getAll')
-                res.status(200).send({
-                    data: result
-                })
+    }).catch((error) => res.status(400).send(error))
+};
+
+exports.getUserByUsername = (req, res) => {
+    return User.findOne({
+        where: {
+            username: req.params.username
+        }
+    }).then((result) => {
+        if (result) {
+            return res.status(200).send({
+                code: '00',
+                error: false,
+                data: result
+            })
+        }
+        return res.status(400).send({
+            code: 99,
+            error: true,
+            message: 'Data Not Found!'
+        })
+    }).catch((error) => res.status(400).send(error))
+};
+
+exports.checkUsernameAvailability = (req, res) => {
+    return User.findOne({
+        where: {
+            username: req.params.username
+        }
+    }).then((result) => {
+        if (!result) {
+            return res.status(200).send({
+                available: true,
+            })
+        } else {
+            return res.status(200).send({
+                available: false,
+            })
+        }
+    }).catch((err) => {
+        return res.status(500).send({
+            error: true,
+            message: err
+        })
+    })
+};
+
+exports.checkEmailAvailability = (req, res) => {
+    return User.findOne({
+        where: {
+            email: req.params.email
+        }
+    }).then((result) => {
+        if (!result) {
+            return res.status(200).send({
+                available: true,
+            })
+        } else {
+            return res.status(200).send({
+                available: false,
+            })
+        }
+    })
+};
+
+exports.getAllUser = (req, res) => {
+    console.log('IS ADMIN : ' + req.body.isSuperUser)
+    if (req.body.isSuperUser) {
+        return User.
+        findAll()
+            .then((result) => {
+                console.log(result)
+                if (result.length > 0) {
+                    res.status(200).send({
+                        code: '00',
+                        error: false,
+                        message: 'success',
+                        data: result
+                    })
+                } else {
+                    res.status(400).send({
+                        code: 90,
+                        error: true,
+                        message: 'Data Not Found!'
+                    })
+                }
             }).catch((error) => res.status(400).send(error))
     }
+    return res.status(400).send({
+        code: '02',
+        error: true,
+        message: 'User Not Authorization/Previledge For This Request!'
+    })
+};
 
-}
+exports.getAllUsers = (req, res) => {
+    return User.findAll().then(result => {
+        console.log('getAll')
+        res.status(200).send({
+            data: result
+        })
+    }).catch((error) => res.status(400).send(error))
+};

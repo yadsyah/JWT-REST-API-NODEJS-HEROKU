@@ -1,28 +1,23 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
+    return queryInterface.createTable('TblGroups', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      kode_karyawan:{
-        allowNull:false,
+      groupId: {
         type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      username: {
+      groupName: {
         type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false
       },
-      email: {
-        type: Sequelize.STRING
-      },
-      password: {
+      isActive: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -32,14 +27,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      isAdmin: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
+    return queryInterface.dropTable('TblGroups');
   }
 };
