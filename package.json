@@ -28,7 +28,7 @@
     "nodemon": "^1.18.4",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "seedrandom": "^2.4.4",
     "sequelize": "^5.8.12",
     "sequelize-cli": "^4.1.1",
