@@ -20,7 +20,7 @@
     "cors": "^2.8.4",
     "csrf": "^3.0.6",
     "csurf": "^1.9.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.3.0",
     "math-random": "^1.0.1",
     "morgan": "^1.9.1",
