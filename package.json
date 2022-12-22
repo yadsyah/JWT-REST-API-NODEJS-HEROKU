@@ -21,7 +21,7 @@
     "csrf": "^3.0.6",
     "csurf": "^1.9.0",
     "express": "^4.16.3",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "math-random": "^1.0.1",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
